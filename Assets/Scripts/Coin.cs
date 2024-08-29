@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    //test commit
     [SerializeField] float turnSpeed = 90f;
 
     private void OnTriggerEnter (Collider other)
