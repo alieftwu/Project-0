@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float horizontalMultiplier = 2;
     [SerializeField] LayerMask groundMask;
     public float speedIncreasePerPoint = 0.1f;
+    [SerializeField] AudioSource deathSound;
 
     [SerializeField] float jumpForce = 400f;
     private void FixedUpdate ()
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Die()
     {
+        deathSound.Play();
         alive = false;
         Invoke("Restart",2);
     }
@@ -49,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
         float height = GetComponent<Collider>().bounds.size.y;
         bool isGrounded = Physics.Raycast(transform.position, Vector3.down, (height/2) + 0.1f, groundMask);
         //If we are, jump
-        rb.AddForce(Vector3.up * jumpForce);
+        if(isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce);
+        }
     }
 }
